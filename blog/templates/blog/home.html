@@ -6,9 +6,9 @@
 {% for post in posts.all %}
 <div style="margin-bottom: 50px;">
     {% if user.is_active %}
-    <p style="font-size:25px;"><a href="{% url 'detail' post.id %}">{{post.title}}</a></p>
+    <p style="font-size:25px;"><a href="{% url 'detail' post.id %}">{{post.title|truncatechars:9}}</a></p>
     {% else %}
-    <p style="font-size:25px;"><a href="{% url 'login' %}">{{post.title}}</a></p>
+    <p style="font-size:25px;"><a href="{% url 'login' %}">{{post.title|truncatechars:9}}</a></p>
     {% endif %}
 </div>
 
