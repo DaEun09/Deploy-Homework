@@ -1,0 +1,36 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body style="background-color: rgb(255, 209, 59);">
+    <div class="con" style="text-align:center; margin: 10px 350px">
+        <h1 style="margin:30px 0px;">Deploy 과제 메인홈</h1>
+        <div class="big" style="padding:10px 50px 200px 50px; background-color: white;">
+            <div class="row" style="margin:30px 0px 50px 0px;">
+                <div class="col-sm-3">
+                    <h5 style="color: rgb(0, 0, 0)"> 최다은 </h5>
+                </div>
+                <div class="col-sm-3"></div>
+
+                {% if user.is_active %}
+                <div class="col-sm-3"><p style="font-size: 17px; text-align:right;"><b>{{ user.username }}</b>님 반갑습니다.</p></div>
+                <div class="col-sm-3">
+                    <a href="{% url 'logout' %}" style="width: 150px;" class="btn btn-warning">로그아웃</a>
+                </div>
+                {% else %}
+
+                <div class="col-sm-3">
+                    <a href="{% url 'login' %}" style="width: 150px;" class="btn btn-warning">로그인</a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="{% url 'accounts:signup' %}" style="width: 150px;" class="btn btn-warning">회원가입</a>
+                </div>
+                {% endif %}
+            </div>
+            <hr>
+        
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>

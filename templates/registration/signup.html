@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="container">
+    <h3>회원가입</h3>
+    <br>
+
+    <form method="POST" action="{% url 'accounts:signup' %}" class="alert alert-warning">
+        <div style="text-align: left;">
+            {% csrf_token %}
+            {{ userform.as_p }}
+        </div>
+        <input type="submit" value="sign up" class="btn btn-warning">
+    </form>
+
+    <br>
+    <a href="{% url 'home' %}" style="width: 150px;" class="btn btn-outline-warning">홈으로</a>
+
+
+</div>
+{% endblock %}

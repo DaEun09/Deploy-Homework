@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<div>
+    <h2 style="color: rgb(238, 174, 0)">{{post.title}}</h2>
+    <p>{{post.created_date}}</p>
+    <div class="row">
+        <a href="{% url 'edit' post.id %}" class="col-sm-2; btn btn-warning">수정하기</a>&nbsp&nbsp
+        <a href="{% url 'delete' post.id %}" class="col-sm-2; btn btn-warning">삭제하기</a>&nbsp&nbsp
+        <a href="{% url 'home' %}" class="col-sm-2; btn btn-warning">홈으로</a>
+    </div>
+    <br><br>
+    <p class="alert alert-warning" style="height:200px; padding-top:30px">{{post.text}}</p>
+    <br><br>
+</div>
+
+<hr>
+
+<p>댓글 {{ post.comments.count }}개</p>
+{% for comment in post.comments.all %}
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-secondary" role="alert">
+            <strong>{{comment.nickname}}</strong>
+            <p>{{comment.created_date}}</p>
+            {{comment.text|linebreaks}}
+        </div>
+    </div>
+    <div class="col-md-2">
+        <a href="{% url 'comment_delete' comment_id=comment.id %}" onclick="return confirm('정말로 삭제하시겠습니까?')"
+            class="btn btn-outline-secondary" role="button" style="font-size: 20px">삭제</a>
+    </div>
+</div>
+{% empty %}
+<p style="margin-bottom: 50px;">댓글이 없습니다.</p>
+
+
+
+{% endfor %}
+<hr>
+
+<h5>댓글 작성</h5><br>
+
+
+<div class="form-group">
+
+    <div class="row">
+
+        <div class="col-md-10">
+            <div class="alert alert-secondary">
+                <form method="POST" action="{% url 'add_comment' post.id %}">
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-secondary">등록하기</button>
+        </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
