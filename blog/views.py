@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
-    posts = Post.objects
+    posts = Post.objects.all()
     return render(request, 'blog/home.html', {'posts':posts})
 
 def detail(request, post_id):
@@ -64,3 +64,9 @@ def comment_delete(request, comment_id):
     post = comment.post
     comment.delete()
     return redirect('detail', post_id=post.id)
+
+def six_words(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    text = request.GET['post']
+    words = text.split()
+    return render(request, 'home.html',{'six': words})
